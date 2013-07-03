@@ -1,0 +1,15 @@
+log/*
+temp/*
+libs/*
+
+.DS_Store
+!.gitignore
+!.htaccess
+!web.config
+app/config/config.local.neon
+/log
+/temp
+/.settings
+/.buildpath
+/.project
+/tests
