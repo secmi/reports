@@ -6,7 +6,8 @@ class ProjectRepository extends Repository
 {
 	
 	/**
-	 * @param string $username
+	 * @param string $name
+	 * @param int $manday_cost
 	 * @return Nette\Database\Table\ActiveRow
 	 */
 	public function createProject($name, $manday_cost)
@@ -21,7 +22,8 @@ class ProjectRepository extends Repository
 	
 	/**
 	 * @param int $id
-	 * @param string $username
+	 * @param string $name
+	 * @param int $manday_cost
 	 * @return void
 	 */
 	public function editProject($id, $name, $manday_cost)
