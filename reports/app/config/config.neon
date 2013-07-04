@@ -28,6 +28,8 @@ common:
 		authenticator: Authenticator
 		routerFactory: RouterFactory
 		router: @routerFactory::createRouter
+		
+		userRepository: UserRepository
 
 
 	factories:

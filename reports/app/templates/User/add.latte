@@ -1,0 +1,17 @@
+{block content}
+	<h1>New user</h1>
+		
+{snippet userForm}
+{form userForm class => 'ajax'}
+	{control $form errors}
+	<fieldset>
+		<div>{label username /} {input username, autofocus => TRUE}</div>
+  	  	<div>{label password /} {input password}</div>
+  	  	<div>{label confirm_password /} {input confirm_password}</div>
+
+		<div class="buttons">{input save}&nbsp;{input continue}</div>
+	</fieldset>
+{/form}
+{/snippet}
+		
+{/block}

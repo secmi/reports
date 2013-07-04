@@ -1,0 +1,27 @@
+{block content}
+	<h1>Users list</h1>[<a href="{plink add}">new item</a>]
+	
+	{ifset $users}
+	<table>
+		<thead>
+			<tr>
+				<th>username</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{foreach $users as $user}
+			<tr>
+				<td>{$user->username}</td>
+				<td><a href="{plink edit $user->user_id}"><img src="{$basePath}/images/edit.png" title="Edit item {$user->username}"></td>
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	{else}
+	<p>Nebyla nalezena žádná položka</p>
+	{/ifset}
+		
+				
+
+{/block}
