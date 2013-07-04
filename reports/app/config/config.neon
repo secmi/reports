@@ -30,6 +30,7 @@ common:
 		router: @routerFactory::createRouter
 		
 		userRepository: UserRepository
+		projectRepository: ProjectRepository
 
 
 	factories:

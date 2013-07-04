@@ -1,0 +1,16 @@
+{block content}
+	<h1>New project</h1>
+		
+{snippet projectForm}
+{form projectForm class => 'ajax'}
+	{control $form errors}
+	<fieldset>
+		<div>{label name /} {input name, autofocus => TRUE}</div>
+  	  	<div>{label manday_cost /} {input manday_cost}</div>
+
+		<div class="buttons">{input save}&nbsp;{input continue}</div>
+	</fieldset>
+{/form}
+{/snippet}
+		
+{/block}

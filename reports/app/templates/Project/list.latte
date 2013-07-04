@@ -1,0 +1,29 @@
+{block content}
+	<h1>Projects list</h1>[<a href="{plink add}">new item</a>]
+	
+	{ifset $projects}
+	<table>
+		<thead>
+			<tr>
+				<th>name</th>
+				<th>manday cost</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{foreach $projects as $project}
+			<tr>
+				<td>{$project->name}</td>
+				<td>{$project->manday_cost}</td>
+				<td><a href="{plink edit $project->project_id}"><img src="{$basePath}/images/edit.png" title="Edit item {$project->name}"></td>
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	{else}
+	<p>Nebyla nalezena žádná položka</p>
+	{/ifset}
+		
+				
+
+{/block}
