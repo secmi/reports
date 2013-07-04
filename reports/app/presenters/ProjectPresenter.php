@@ -113,7 +113,7 @@ class ProjectPresenter extends BasePresenter
 		
 			if(!(isset($values->project_id) && $values->project_id != ''))
 			{
-				$user_id = $this->projectRepository->createProject(
+				$project_id = $this->projectRepository->createProject(
 								$values->name,
 								$values->manday_cost
 						);			

@@ -123,12 +123,7 @@ class UserPresenter extends BasePresenter
 								$values->username
 						);
 							
-				$password = $values->password;
-				if($password == '') {
-					$password = $this->generatePassword(10, TRUE, TRUE);
-				}
-				
-				$this->userRepository->setPassword($user_id, $password);				
+				$this->userRepository->setPassword($user_id, $values->password;);				
 			}
 			else
 			{
