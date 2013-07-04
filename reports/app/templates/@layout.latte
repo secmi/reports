@@ -1,11 +1,3 @@
-{**
- * My Application layout template.
- *
- * @param string   $basePath web base path
- * @param string   $robots   tell robots how to index the content of a page (optional)
- * @param array    $flashes  flash messages
- *}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,25 +5,50 @@
 	<meta name="description" content="">
 	<meta name="robots" content="{$robots}" n:ifset="$robots">
 
-	<title>{block title|striptags|upper}Nette Application Skeleton{/block}</title>
+	<title>Reports{block title|striptags|upper}{/block}</title>
 
-	<link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
-	<link rel="stylesheet" media="print" href="{$basePath}/css/print.css">
+	<!-- The styles -->
+	<link href='{$basePath}/css/basic.css' rel='stylesheet'>
+
+	<!-- The fav icon -->
 	<link rel="shortcut icon" href="{$basePath}/favicon.ico">
+		
 	{block head}{/block}
 </head>
 
 <body>
 	<script> document.documentElement.className+=' js' </script>
-
-	<div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
-
+	
+	<div id="header">
+		Reports
+	</div>
+		
+	<div id="menu">
+	{include 'Menu/menu.latte'}
+	</div>	
+			
+	<div id="content">
+		{snippet flashes}
+		<div n:foreach="$flashes as $flash" class="alert alert-{$flash->type}">
+			{$flash->message}
+		</div>			
+		{/snippet}
+		
 	{include #content}
+	</div>
 
 	{block scripts}
-	<script src="{$basePath}/js/jquery.js"></script>
-	<script src="{$basePath}/js/netteForms.js"></script>
+	<script src="{$basePath}/js/jquery-1.9.1.min.js"></script>
+	<script src="{$basePath}/js/nette.ajax.js"></script>
+	<script src="{$basePath}/js/live-form-validation.js"></script>
 	<script src="{$basePath}/js/main.js"></script>
+	
+	<script>
+		$(function () {
+		    $.nette.init();
+		});
+	</script>
 	{/block}
+	
 </body>
 </html>

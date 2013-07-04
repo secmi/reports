@@ -1,0 +1,193 @@
+#header {
+	width: 100%;
+	height: 60px;
+	line-height: 1.8em;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+	background: rgb(79,133,187);
+	background: -moz-linear-gradient(left, rgb(79,133,187) 0%, rgb(79,133,187) 100%);
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgb(79,133,187)), color-stop(100%,rgb(79,133,187)));
+	background: -webkit-linear-gradient(left, rgb(79,133,187) 0%,rgb(79,133,187) 100%);
+	background: -o-linear-gradient(left, rgb(79,133,187) 0%,rgb(79,133,187) 100%);
+	background: -ms-linear-gradient(left, rgb(79,133,187) 0%,rgb(79,133,187) 100%);
+	background: linear-gradient(to right, rgb(79,133,187) 0%,rgb(79,133,187) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4f85bb', endColorstr='#4f85bb',GradientType=1 );"
+}
+
+#menu {
+	float: left;
+	height: 100%;
+	width: 150px;
+	margin-top: 20px;
+	margin-right: 20px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	background: rgb(152,190,222);
+	background: -moz-linear-gradient(top,  rgb(152,190,222) 0%, rgb(222,239,255) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgb(152,190,222)), color-stop(100%,rgb(222,239,255)));
+	background: -webkit-linear-gradient(top,  rgb(152,190,222) 0%,rgb(222,239,255) 100%);
+	background: -o-linear-gradient(top,  rgb(152,190,222) 0%,rgb(222,239,255) 100%);
+	background: -ms-linear-gradient(top,  rgb(152,190,222) 0%,rgb(222,239,255) 100%);
+	background: linear-gradient(to bottom,  rgb(152,190,222) 0%,rgb(222,239,255) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#98bede', endColorstr='#deefff',GradientType=0 );
+}
+
+#menu ul {
+	padding-left: 10px;
+}
+
+#menu li {
+	list-style-type: none;	
+}
+
+p.user {
+	margin-left: 5px;
+	font-weight: bold;
+}
+
+p.user a {
+	font-weight: normal;
+}
+
+#content {
+	margin-top: 20px;
+	margin-left: 170px;
+	border: 2px solid black;
+	padding: 10px;
+}
+
+h1 {
+	margin: 0;
+	margin-right: 20px;
+	margin-bottom: 10px;
+	padding: 0;
+	display: inline-block;
+}
+
+fieldset {
+	border: 0;
+}
+
+label {
+	display: inline-block;
+	width: 150px;
+	margin-bottom: 10px;
+}
+
+.buttons {
+	margin-top: 20px;
+}
+
+.required {
+	color: red;
+}
+
+span.help-inline {
+	color: red;
+	margin-left: 5px;
+}
+
+div.confirmation-dialog {
+	position: fixed;
+	left: 30%;
+	top: 30%;
+	width: 250px;
+	padding: 10px;
+	background-color: #deefff;
+	border: 5px solid #4f85bb;
+}
+
+div.alert {
+	width: 95%;
+	padding: 5px;
+	background-color: #deefff;
+	border: 1px solid #4f85bb;
+	font-weight: bold;
+}
+
+.datagrid table {
+	width: 100%;
+}
+
+.datagrid td,
+.datagrid th {
+ 	border-color: #CACACA;
+}
+
+.datagrid .cols-actions {
+ 	text-align: center;
+}
+
+.datagrid thead .columns {
+	 background-color: #f2f2f2;
+	 background-image: -moz-linear-gradient(top, #fafafa, #f2f2f2);
+	 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fafafa), to(#f2f2f2));
+	 background-image: -webkit-linear-gradient(top, #fafafa, #f2f2f2);
+	 background-image: -o-linear-gradient(top, #fafafa, #f2f2f2);
+	 background-image: linear-gradient(to bottom, #fafafa, #f2f2f2);
+	 background-repeat: repeat-x;
+	 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffafafa', endColorstr='#fff2f2f2', GradientType=0);
+}
+
+.datagrid thead .columns th a {
+	color: #4f85bb;
+	text-decoration: none;
+}
+
+.datagrid thead .filters {
+	 background-color: #e9e9e9;
+	 background-image: -moz-linear-gradient(top, #f2f2f2, #e9e9e9);
+	 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f2f2f2), to(#e9e9e9));
+	 background-image: -webkit-linear-gradient(top, #f2f2f2, #e9e9e9);
+	 background-image: -o-linear-gradient(top, #f2f2f2, #e9e9e9);
+	 background-image: linear-gradient(to bottom, #f2f2f2, #e9e9e9);
+	 background-repeat: repeat-x;
+	 filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff2f2f2', endColorstr='#ffe9e9e9', GradientType=0);
+}
+
+.datagrid thead .filters th {
+ 	border-top: 1px solid #E5E5E5;
+}
+
+.datagrid tbody td {
+ 	vertical-align: middle;
+}
+
+.datagrid tbody td.over {
+	background-color: red;
+}
+
+.datagrid tbody td.remind {
+	background-color: yellow;	
+}
+
+.datagrid tbody td.col-actions {
+	white-space: nowrap;
+}
+
+.datagrid select,
+.datagrid textarea,
+.datagrid input[type="text"],
+.datagrid input[type="password"],
+.datagrid input[type="datetime"],
+.datagrid input[type="datetime-local"],
+.datagrid input[type="date"],
+.datagrid input[type="month"],
+.datagrid input[type="time"],
+.datagrid input[type="week"],
+.datagrid input[type="number"],
+.datagrid input[type="email"],
+.datagrid input[type="url"],
+.datagrid input[type="search"],
+.datagrid input[type="tel"],
+.datagrid input[type="color"],
+.datagrid .uneditable-input {
+	 -webkit-box-sizing: border-box;
+	 -moz-box-sizing: border-box;
+	 box-sizing: border-box;
+	 width: 100%;
+	 height: 25px;
+	 padding: 3px 3px;
+	 margin-bottom: 0;
+}
