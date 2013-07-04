@@ -1,0 +1,20 @@
+{block content}
+	<h1>New record</h1>
+		
+{snippet recordForm}
+{form recordForm class => 'ajax'}
+	{control $form errors}
+	<fieldset>
+		<div>{label user_id /} {input user_id, autofocus => TRUE}</div>
+  	  	<div>{label project_id /} {input project_id}</div>
+  	  	<div>{label from_datetime /} {input from_datetime}&nbsp;(rrrr-mm-dd hh:mm)</div>
+  	  	<div>{label to_datetime /} {input to_datetime}&nbsp;(rrrr-mm-dd hh:mm)</div>
+  	  	<div>{label note /} {input note}</div>
+  	  	<div>{label bug_note /} {input bug_note}</div>
+
+		<div class="buttons">{input save}&nbsp;{input continue}</div>
+	</fieldset>
+{/form}
+{/snippet}
+		
+{/block}

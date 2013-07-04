@@ -31,6 +31,7 @@ common:
 		
 		userRepository: UserRepository
 		projectRepository: ProjectRepository
+		recordRepository: RecordRepository
 
 
 	factories:

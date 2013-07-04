@@ -13,19 +13,21 @@ class RecordPresenter extends BasePresenter
 	private $recordRepository;
 
 	/** @var UserRepository */
-	private $recordRepository;
+	private $userRepository;
 	
-	/** @var UserRepository */
-	private $recordRepository;
+	/** @var ProjectRepository */
+	private $projectRepository;
 	
 	/** @var  */
 	private $records;
 
 	
 
-	public function inject(RecordRepository $recordRepository)
+	public function inject(RecordRepository $recordRepository, UserRepository $userRepository, ProjectRepository $projectRepository)
 	{
 		$this->recordRepository = $recordRepository;
+		$this->userRepository = $userRepository;
+		$this->projectRepository = $projectRepository;
 	}
 
 	
@@ -74,12 +76,12 @@ class RecordPresenter extends BasePresenter
 		$record = $this->recordRepository->getRecord($id);
 		
 		$this['recordForm']->setDefaults(array(
-				'user_id' => $project->user_id,
-				'project_id' => $project->project_id,
-				'from_datetime' => $project->from_datetime,
-				'to_datetime' => $project->to_datetime,
-				'note' => $project->note,
-				'bug_note' => $project->bug_note,
+				'user_id' => $record->user_id,
+				'project_id' => $record->project_id,
+				'from_datetime' => $record->from_datetime,
+				'to_datetime' => $record->to_datetime,
+				'note' => $record->note,
+				'bug_note' => $record->bug_note,
 		));
 		
 		$this['recordForm']->addHidden('record_id', $id);
@@ -99,29 +101,39 @@ class RecordPresenter extends BasePresenter
 	 */
 	protected function createComponentRecordForm()
 	{
-		$categories = $this->categoryRepository->getCategories()->fetchPairs('category_id', 'name');
-		$categories = $this->categoryRepository->getCategories()->fetchPairs('category_id', 'name');
+		$users = $this->userRepository->getUsers()->fetchPairs('user_id', 'username');
+		$projects = $this->projectRepository->getProjects()->fetchPairs('project_id', 'name');
 		
 		$form = new Form;
 		$form->addProtection('Timeout expired, please repeat your last action.');
 		
-		$form->addSelect('category_id', 'kategorie', $categories)
-		->setRequired('Prosím, vyplňte pole %label.')
-		->setPrompt('- Vyberte -');
-		
-		$form->addText('name', 'name')
+		$form->addSelect('user_id', 'user', $users)
 			->setRequired('%label field cannot be empty')
-			->addRule(Form::MAX_LENGTH, '%label must be maximum %d characters', 100);
-		
-		$form->addText('manday_cost', 'manday cost')
+			->setPrompt('- Select -');
+
+		$form->addSelect('project_id', 'project', $projects)
 			->setRequired('%label field cannot be empty')
-			->addRule(Form::INTEGER, '%label must be an integer');
+			->setPrompt('- Select -');
+		
+		$form->addText('from_datetime', 'from datetime')
+			->setRequired('%label field cannot be empty');
+		
+		$form->addText('to_datetime', 'to datetime')
+		->setRequired('%label field cannot be empty');
+		
+		$form->addTextArea('note', 'note')
+			->addCondition(Form::FILLED, TRUE)
+				->addRule(Form::MAX_LENGTH, '%label must be maximum %d characters', 255);
+		
+		$form->addTextArea('bug_note', 'bug note')
+			->addCondition(Form::FILLED, TRUE)
+				->addRule(Form::MAX_LENGTH, '%label must be maximum %d characters', 255);
 		
 		$form->addSubmit('save', 'Save');
 		$form->addSubmit('continue', 'Save and new entry');
 		
-		// call method projectFormSucceeded() on success
-		$form->onSuccess[] = $this->projectFormSucceeded;
+		// call method recordFormSucceeded() on success
+		$form->onSuccess[] = $this->recordFormSucceeded;
 		return $form;  		
 	}
 	
@@ -130,24 +142,32 @@ class RecordPresenter extends BasePresenter
 	/**
 	 * @param  Nette\Application\UI\Form $form
 	 */
-	public function projectFormSucceeded(Form $form)
+	public function recordFormSucceeded(Form $form)
 	{
 		try {
 			$values = $form->getValues();
 		
-			if(!(isset($values->project_id) && $values->project_id != ''))
+			if(!(isset($values->record_id) && $values->record_id != ''))
 			{
-				$user_id = $this->projectRepository->createProject(
-								$values->name,
-								$values->manday_cost
+				$record_id = $this->recordRepository->createRecord(
+							$values->user_id,
+							$values->project_id,
+							$values->from_datetime,
+							$values->to_datetime,
+							$values->note,
+							$values->bug_note
 						);			
 			}
 			else
 			{
-				$this->projectRepository->editProject(
+				$this->recordRepository->editRecord(
+						$values->record_id,
+						$values->user_id,
 						$values->project_id,
-						$values->name,
-						$values->manday_cost
+						$values->from_datetime,
+						$values->to_datetime,
+						$values->note,
+						$values->bug_note
 				);
 			}
 			
@@ -155,7 +175,7 @@ class RecordPresenter extends BasePresenter
 			$this->flashMessage('Item successfully saved.', 'success');
 			if($form['save']->isSubmittedBy())
 			{
-				$this->redirect('Project:list');
+				$this->redirect('Record:list');
 			}
 			else
 			{
@@ -165,7 +185,7 @@ class RecordPresenter extends BasePresenter
 				}
 				else
 				{
-					$this->invalidateControl('projectForm');
+					$this->invalidateControl('recordForm');
 					$form->setValues(array(), TRUE);
 				}
 			}
@@ -176,7 +196,7 @@ class RecordPresenter extends BasePresenter
 			
 			if ($this->isAjax())
 			{
-				$this->invalidateControl('projectForm');
+				$this->invalidateControl('recordForm');
 			}
 		}	
 	}

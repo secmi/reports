@@ -1,0 +1,37 @@
+{block content}
+	<h1>Record list</h1>[<a href="{plink add}">new item</a>]
+	
+	{ifset $records}
+	<table>
+		<thead>
+			<tr>
+				<th>user</th>
+				<th>project</th>
+				<th>from datetime</th>
+				<th>to datetime</th>
+				<th>note</th>
+				<th>bug note</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+		{foreach $records as $record}
+			<tr>
+				<td>{$record->user->username}</td>
+				<td>{$record->project->name}</td>
+				<td>{$record->from_datetime}</td>
+				<td>{$record->to_datetime}</td>
+				<td>{$record->note}</td>
+				<td>{$record->bug_note}</td>
+				<td><a href="{plink edit $record->record_id}"><img src="{$basePath}/images/edit.png" title="Edit item"></td>
+			</tr>
+		{/foreach}
+		</tbody>
+	</table>
+	{else}
+	<p>Nebyla nalezena žádná položka</p>
+	{/ifset}
+		
+				
+
+{/block}
