@@ -9,7 +9,7 @@ use Nette\Application\UI\Form;
 class ProjectPresenter extends BasePresenter
 {
 
-	/** @var UserRepository */
+	/** @var ProjectRepository */
 	private $projectRepository;
 	
 	/** @var  */
