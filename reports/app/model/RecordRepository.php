@@ -80,13 +80,29 @@ class RecordRepository extends Repository
 	 * @param array $filter
 	 * @return Nette\Database\Table\Selection
 	 */
-	public function getRecords(array $filter = null) {
+	public function getRecords(array $filter = null)
+	{
 		if($filter === null) {
-			return $this->getTable();
+			return $this->getTable()->select('*, HOUR(TIMEDIFF(`from_datetime`, `to_datetime`)) AS `time_sum`, HOUR(TIMEDIFF(`from_datetime`, `to_datetime`))*project.manday_cost AS `cost_sum`');
 		}
 		else {
-			return $this->findBy($filter);
+			return $this->getTable()->select('*, HOUR(TIMEDIFF(`from_datetime`, `to_datetime`)) AS `time_sum`, HOUR(TIMEDIFF(`from_datetime`, `to_datetime`))*project.manday_cost AS `cost_sum`')->where($filter);
 		}
 	}
 	
+	
+		
+	/**
+	 * @param array $filter
+	 * @return \Nette\Database\Table\ActiveRow|FALSE
+	 */
+	public function getSummary(array $filter = null)
+	{
+		if($filter === null) {
+			return $this->getTable()->select('Sum(HOUR(TIMEDIFF(`from_datetime`, `to_datetime`))) AS `time_summary`, Sum(HOUR(TIMEDIFF(`from_datetime`, `to_datetime`))*project.manday_cost) AS `cost_summary`')->fetch();
+		}
+		else {
+			return $this->getTable()->select('Sum(HOUR(TIMEDIFF(`from_datetime`, `to_datetime`))) AS `time_summary`, Sum(HOUR(TIMEDIFF(`from_datetime`, `to_datetime`))*project.manday_cost) AS `cost_summary`')->where($filter)->fetch();
+		}
+	}
 }

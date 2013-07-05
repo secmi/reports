@@ -20,6 +20,15 @@ class RecordPresenter extends BasePresenter
 	
 	/** @var  */
 	private $records;
+	
+	/** @var  */
+	private $summary;
+	
+	/** @var  string */
+	private $type;
+	
+	/** @persistent string */
+	public $prev_sort = NULL;
 
 	
 
@@ -31,11 +40,47 @@ class RecordPresenter extends BasePresenter
 	}
 
 	
+	/*
+	* @param string $sort
+	* @param string $type
+	*/
+	public function actionSummary($sort = NULL, $type = 'ASC')
+	{
+		$filter = $this->getSession('filter');
+		
+		$this['recordFilterForm']->setDefaults(array(
+				'user_id' => $filter->user_id,
+				'project_id' => $filter->project_id,
+		));
+		
+		$data_filter = array();
+		if($filter->user_id != '') $data_filter['user.user_id'] = $filter->user_id;
+		if($filter->project_id != '') $data_filter['project.project_id'] = $filter->project_id;
+		
+		$this->type = ($sort != $this->prev_sort) ? 'ASC' : $type;
+			
+		$this->records = $this->recordRepository->getRecords($data_filter);
+		if($sort)
+		{
+			$order = $sort . ' ' . $this->type;
+			$this->prev_sort = $sort;
+			
+			$this->records->order($order);
+		}
+		
+		$this->summary = $this->recordRepository->getSummary($data_filter);
+	}
+	
 
 	
 	public function renderSummary()
 	{
-		
+		if($this->records->count() > 0)
+		{
+			$this->template->records = $this->records;
+			$this->template->summary = $this->summary;
+			$this->template->type = ($this->type == 'ASC') ? 'DESC' : 'ASC';
+		}
 	}
 	
 	
@@ -92,6 +137,46 @@ class RecordPresenter extends BasePresenter
 	public function renderEdit()
 	{
 		$this->setView('add');
+	}
+	
+	
+	/**
+	 * @return Nette\Application\UI\Form
+	 */
+	protected function createComponentRecordFilterForm()
+	{
+		$users = $this->userRepository->getUsers()->fetchPairs('user_id', 'username');
+		$projects = $this->projectRepository->getProjects()->fetchPairs('project_id', 'name');
+	
+		$form = new Form;
+		$form->addProtection('Timeout expired, please repeat your last action.');
+	
+		$form->addSelect('user_id', 'user', $users)
+			->setPrompt('- Select -');
+	
+		$form->addSelect('project_id', 'project', $projects)
+			->setPrompt('- Select -');
+
+		// call method recordFormSucceeded() on success
+		$form->onSuccess[] = $this->recordFilterFormSucceeded;
+		return $form;
+	}
+	
+	
+	
+	/**
+	 * @param  Nette\Application\UI\Form $form
+	 */
+	public function recordFilterFormSucceeded(Form $form)
+	{
+		$values = $form->getValues();
+		
+		$filter = $this->getSession('filter');
+				
+		$filter->user_id = $values->user_id;
+		$filter->project_id = $values->project_id;	
+		
+		$this->redirect('this');
 	}
 	
 	

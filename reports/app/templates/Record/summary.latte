@@ -1,2 +1,60 @@
 {block content}
-{/block content}
+	<h1>Record summary</h1>
+	
+	<table>
+		<thead>
+			{ifset $records}
+			<tr class="summary">
+				<td colspan="3">Total time: {$summary->time_summary}:00</td>
+				<td colspan="3" class="right">Total cost: {$summary->cost_summary|number:0:',':' '}</td>
+			</tr>
+			{/ifset}
+			<tr>
+				<th><a href="{plink summary, 'user.username', $type}">user</a></th>
+				<th><a href="{plink summary, 'project.name', $type}">project</a></th>
+				<th><a href="{plink summary, 'from_datetime', $type}">from datetime</a></th>
+				<th><a href="{plink summary, 'to_datetime', $type}">to datetime</a></th>
+				<th><a href="{plink summary, 'cost', $type}">cost</a></th>
+				<th><a href="{plink summary, 'time_sum', $type}">time sum</a></th>
+			</tr>
+			<tr>
+				{form recordFilterForm}
+					<th>{input user_id, class => 'submit-item'}</th>
+					<th>{input project_id, class => 'submit-item'}</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+					<th>&nbsp;</th>
+				{/form}
+			</tr>
+		</thead>
+		{ifset $records}
+		<tfoot>
+			<tr>
+				<td colspan="4">sum</td>
+				<td class="right">{$summary->cost_summary|number:0:',':' '}</td>
+				<td class="right">{$summary->time_summary}:00</td>
+			</tr>
+		</tfoot>
+		<tbody>
+		{foreach $records as $record}
+			<tr>
+				<td>{$record->user->username}</td>
+				<td>{$record->project->name}</td>
+				<td>{$record->from_datetime}</td>
+				<td>{$record->to_datetime}</td>
+				<td class="right">{$record->cost_sum|number:0:',':' '}&nbsp;Kč</td>
+				<td class="right">{$record->time_sum}:00</td>
+			</tr>
+		{/foreach}
+		</tbody>
+		{else}
+		<tbody>
+			<tr>
+				<td colspan="6">Nebyla nalezena žádná položka</td>
+			</tr>
+		</tbody>
+	{/ifset}
+	</table>
+
+{/block}
