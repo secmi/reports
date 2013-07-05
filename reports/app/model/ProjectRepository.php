@@ -43,7 +43,7 @@ class ProjectRepository extends Repository
 	 */
 	public function deleteProject($id)
 	{
-		$this->findOneBy(array('user_id' => $id))
+		$this->find($id)
 		->delete();
 	}
 	

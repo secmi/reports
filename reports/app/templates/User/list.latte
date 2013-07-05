@@ -1,4 +1,6 @@
 {block content}
+	{control questionWindow}
+	
 	<h1>Users list</h1>[<a href="{plink add}">new item</a>]
 	
 	{ifset $users}
@@ -14,6 +16,7 @@
 			<tr>
 				<td>{$user->username}</td>
 				<td><a href="{plink edit $user->user_id}"><img src="{$basePath}/images/edit.png" title="Edit item {$user->username}"></td>
+				<td><a href="{plink questionWindow:showQuestion! id => $user->user_id, question => "Do you really want to delete item {$user->username}?"}"><img src="{$basePath}/images/delete.png" title="Delete item {$user->username}"></td>
 			</tr>
 		{/foreach}
 		</tbody>

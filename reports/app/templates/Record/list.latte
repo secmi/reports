@@ -1,4 +1,6 @@
 {block content}
+	{control questionWindow}
+	
 	<h1>Record list</h1>[<a href="{plink add}">new item</a>]
 	
 	{ifset $records}
@@ -24,6 +26,7 @@
 				<td>{$record->note}</td>
 				<td>{$record->bug_note}</td>
 				<td><a href="{plink edit $record->record_id}"><img src="{$basePath}/images/edit.png" title="Edit item"></td>
+				<td><a href="{plink questionWindow:showQuestion! id => $record->record_id, question => "Do you really want to delete item?"}"><img src="{$basePath}/images/delete.png" title="Delete item"></td>
 			</tr>
 		{/foreach}
 		</tbody>

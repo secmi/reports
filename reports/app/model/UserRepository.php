@@ -54,7 +54,7 @@ class UserRepository extends Repository
 	 */
 	public function deleteUser($id)
 	{
-		$this->findOneBy(array('user_id' => $id))
+		$this->find($id)
 		->delete();
 	}
 	

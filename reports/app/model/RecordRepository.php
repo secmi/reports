@@ -59,7 +59,7 @@ class RecordRepository extends Repository
 	 */
 	public function deleteRecord($id)
 	{
-		$this->findOneBy(array('user_id' => $id))
+		$this->find($id)
 		->delete();
 	}
 	

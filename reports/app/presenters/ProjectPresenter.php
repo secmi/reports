@@ -76,6 +76,32 @@ class ProjectPresenter extends BasePresenter
 	}
 	
 	
+	
+	protected function createComponentQuestionWindow()
+	{
+		return new QuestionWindowControl($this->getSession('questionWindow'), array($this, 'deleteItem'));
+	}
+	
+	
+	
+	/**
+	 * @param int $id
+	 */
+	function deleteItem($id)
+	{
+		try {
+			$this->projectRepository->deleteProject($id);
+	
+			$this->flashMessage('Item successfully deleted.', 'success');
+			$this->redirect('Project:list');
+		}
+		catch (PDOException $e) {
+			$this->flashMessage('Error while saving item, please repeat your last action.', 'error');
+			$this->redirect('Project:list');
+		}
+	}
+	
+	
 
 	/**
 	 * @return Nette\Application\UI\Form
@@ -148,7 +174,7 @@ class ProjectPresenter extends BasePresenter
 		}
 		catch (\PDOException $e)
 		{
-			$form->addError('Error while saving item, please repeat your last action.' .$e);
+			$form->addError('Error while saving item, please repeat your last action.');
 			
 			if ($this->isAjax())
 			{

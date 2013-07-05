@@ -101,3 +101,16 @@ tr.summary td {
 	font-size: 1.2em;
 	font-weight: bold;
 }
+
+div#question-window {
+	position: absolute;
+	left: 50%;
+}
+
+div#question-window > div {
+	 position: relative;
+	 left: -50%;
+	 background-color: #deefff;
+	 border: 5px solid #4f85bb;
+	 padding: 10px;
+}

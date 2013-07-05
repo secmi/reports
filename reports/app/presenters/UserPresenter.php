@@ -78,6 +78,32 @@ class UserPresenter extends BasePresenter
 	}
 	
 	
+	
+	protected function createComponentQuestionWindow()
+	{
+		return new QuestionWindowControl($this->getSession('questionWindow'), array($this, 'deleteItem'));
+	}
+	
+	
+	
+	/**
+	 * @param int $id
+	 */
+	function deleteItem($id)
+	{
+		try {
+			$this->userRepository->deleteUser($id);
+	
+			$this->flashMessage('Item successfully deleted.', 'success');
+			$this->redirect('User:list');
+		}
+		catch (PDOException $e) {
+			$this->flashMessage('Error while saving item, please repeat your last action.', 'error');
+			$this->redirect('User:list');
+		}
+	}
+	
+	
 
 	/**
 	 * @return Nette\Application\UI\Form
@@ -123,7 +149,7 @@ class UserPresenter extends BasePresenter
 								$values->username
 						);
 							
-				$this->userRepository->setPassword($user_id, $values->password;);				
+				$this->userRepository->setPassword($user_id, $values->password);				
 			}
 			else
 			{
